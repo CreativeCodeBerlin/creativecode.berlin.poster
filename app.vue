@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form>
+    <form @submit.prevent="download">
       <div>
         <label for="">Date to generate from</label>
         <Datepicker v-model="today" />
@@ -34,14 +34,14 @@
         <label for="">Image</label>
         <div class="image-preview">
           <img :src="image" class="image-preview" />
-          <input type="file" @change="addFile" />
+          <input type="file" required @change="addFile" />
         </div>
         <div>
           <label for="">Author</label>
-          <input type="text" v-model="author" /><br />
+          <input type="text" required v-model="author" /><br />
         </div>
       </div>
-      <button @click.prevent="download">Download</button>
+      <button>Download</button>
     </form>
     <div class="preview">
       <div>
@@ -88,7 +88,7 @@ const when = ref(new Date());
 const edition = ref(103);
 const where = ref("co.up Berlin");
 const image = ref(DefaultImage);
-const author = ref("Nuño De La Serna");
+const author = ref("");
 
 const data = ref({
   today,
