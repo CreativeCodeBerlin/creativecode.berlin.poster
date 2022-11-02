@@ -1,6 +1,9 @@
 <template>
   <div class="card">
-    <img :src="data.image" />
+    <img
+      :src="data.image"
+      :style="`object-position: ${data.focus[0]}% ${data.focus[1]}%`"
+    />
     <div class="banner">
       <div class="logo">
         <svg

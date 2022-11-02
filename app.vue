@@ -37,6 +37,12 @@
           <input type="file" required @change="addFile" />
         </div>
         <div>
+          <label for="">Focus</label>
+
+          <input type="range" min="0" max="100" v-model="focus[0]" />
+          <input type="range" min="0" max="100" v-model="focus[1]" />
+        </div>
+        <div>
           <label for="">Author</label>
           <input type="text" required v-model="author" /><br />
         </div>
@@ -98,6 +104,7 @@ const where = ref("co.up Berlin");
 const image = ref(DefaultImage);
 const author = ref("");
 const classes = ref([]);
+const focus = ref([50, 50]);
 
 const data = ref({
   today,
@@ -107,6 +114,7 @@ const data = ref({
   where,
   image,
   author,
+  focus,
 });
 
 useHead({
