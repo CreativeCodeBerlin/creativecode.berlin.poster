@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="classes">
     <form @submit.prevent="download">
       <div>
         <label for="">Date to generate from</label>
@@ -40,6 +40,14 @@
           <label for="">Author</label>
           <input type="text" required v-model="author" /><br />
         </div>
+      </div>
+      <div>
+        <label for="">Options</label>
+        <select v-model="classes" multiple required>
+          <option v-for="cls in ['invert', 'grey', 'none']" :value="cls">
+            {{ cls }}
+          </option>
+        </select>
       </div>
       <button>Download</button>
     </form>
@@ -89,6 +97,7 @@ const edition = ref(103);
 const where = ref("co.up Berlin");
 const image = ref(DefaultImage);
 const author = ref("");
+const classes = ref([]);
 
 const data = ref({
   today,
@@ -206,6 +215,9 @@ form {
   gap: 100px;
   flex-wrap: wrap;
 }
+.preview > div {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.125);
+}
 .image-preview {
   width: 150px;
 }
@@ -228,5 +240,13 @@ form {
 .square {
   width: 540px;
   height: 540px;
+}
+.invert :deep(.author),
+.invert :deep(.site) {
+  color: black;
+}
+.grey :deep(.author),
+.grey :deep(.site) {
+  color: grey;
 }
 </style>
