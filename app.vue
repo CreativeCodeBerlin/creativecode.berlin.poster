@@ -182,7 +182,7 @@ function generateNextEvent() {
     stammtisch.edition += 1;
   }
   let jam = {
-    edition: 20,
+    edition: 105,
     date: new Date(2022, 9, 7, 12, 0),
     type: formats[1],
   };
