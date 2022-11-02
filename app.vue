@@ -50,7 +50,10 @@
       <div>
         <label for="">Options</label>
         <select v-model="classes" multiple required>
-          <option v-for="cls in ['invert', 'grey', 'none']" :value="cls">
+          <option
+            v-for="cls in ['invert', 'grey', 'color', 'bg', 'none']"
+            :value="cls"
+          >
             {{ cls }}
           </option>
         </select>
@@ -256,5 +259,20 @@ form {
 .grey :deep(.author),
 .grey :deep(.site) {
   color: grey;
+}
+.color :deep(.author),
+.color :deep(.site) {
+  color: var(--fg-1);
+}
+.bg :deep(.author),
+.bg :deep(.site) {
+  background: white;
+  /* color: black; */
+  /* backdrop-filter: blur(5px); */
+  padding: 5px 10px;
+}
+.blur :deep(.author),
+.blur :deep(.site) {
+  backdrop-filter: blur(5px);
 }
 </style>
