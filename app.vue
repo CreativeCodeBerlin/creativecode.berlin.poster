@@ -102,7 +102,7 @@ const when = ref(new Date());
 const edition = ref(103);
 const where = ref("co.up Berlin");
 const image = ref(DefaultImage);
-const author = ref("");
+const author = ref(null);
 const classes = ref([]);
 const focus = ref([50, 50]);
 

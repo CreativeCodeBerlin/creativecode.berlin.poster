@@ -52,7 +52,7 @@
         </svg>
       </div>
     </div>
-    <div class="author">{{ data.author }}</div>
+    <div class="author">{{ data.author ?? "Unknown Author" }}</div>
     <div class="site">creativecode.berlin</div>
   </div>
 </template>
