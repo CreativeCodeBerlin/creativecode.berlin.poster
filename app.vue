@@ -49,14 +49,37 @@
       </div>
       <div>
         <label for="">Options</label>
-        <select v-model="classes" multiple required>
+        <div>
+          <Multiselect
+            v-model="classes"
+            mode="tags"
+            :options="[
+              'margin',
+              'contain',
+              'invert',
+              'grey',
+              'color',
+              'bg',
+              'none',
+            ]"
+          ></Multiselect>
+        </div>
+        <!-- <select v-model="classes" multiple required size="10">
           <option
-            v-for="cls in ['invert', 'grey', 'color', 'bg', 'none']"
+            v-for="cls in [
+              'invert',
+              'grey',
+              'color',
+              'bg',
+              'none',
+              'margin',
+              'contain',
+            ]"
             :value="cls"
           >
             {{ cls }}
           </option>
-        </select>
+        </select> -->
       </div>
       <button>Download</button>
     </form>
@@ -85,6 +108,7 @@
 
 <script setup>
 import Datepicker from "vue3-datepicker";
+import Multiselect from "@vueform/multiselect";
 import DefaultImage from "~/assets/default_image";
 import {
   isBefore,
@@ -106,7 +130,7 @@ const edition = ref(103);
 const where = ref("co.up Berlin");
 const image = ref(DefaultImage);
 const author = ref(null);
-const classes = ref([]);
+const classes = ref(null);
 const focus = ref([50, 50]);
 
 const data = ref({
@@ -188,7 +212,9 @@ function download() {
       })
       .then(function (blob) {
         var link = document.createElement("a");
-        link.download = `${format.value}-${edition.value}-${name}.png`;
+        link.download = `${format.value}-${
+          edition.value
+        }-${name}-${new Date().getHours()}-${new Date().getMinutes()}.png`;
         link.href = blob;
         link.click();
         el.style = "";
@@ -244,10 +270,6 @@ form {
   top: auto;
   bottom: 160px;
 }
-.story :deep(.author, .site) {
-  bottom: auto;
-  top: 20px;
-}
 .square {
   width: 540px;
   height: 540px;
@@ -269,8 +291,13 @@ form {
   background: white;
   padding: 5px 10px;
 }
-.blur :deep(.author),
-.blur :deep(.site) {
-  backdrop-filter: blur(5px);
+.contain :deep(.image) {
+  object-fit: contain;
+}
+.margin .story :deep(.image) {
+  top: 100px;
+  height: calc(100% - 200px);
+  object-fit: cover;
 }
 </style>
+<style src="@vueform/multiselect/themes/default.css"></style>

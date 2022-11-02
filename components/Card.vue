@@ -1,6 +1,12 @@
 <template>
   <div class="card">
     <img
+      class="bg"
+      :src="data.image"
+      :style="`object-position: ${data.focus[0]}% ${data.focus[1]}%`"
+    />
+    <img
+      class="image"
       :src="data.image"
       :style="`object-position: ${data.focus[0]}% ${data.focus[1]}%`"
     />
@@ -69,6 +75,7 @@ defineProps(["data"]);
   color: white;
   font-size: 18px;
   line-height: 30px;
+  overflow: hidden;
 }
 .banner {
   background: var(--fg-1);
@@ -99,6 +106,9 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .author {
   position: absolute;
@@ -109,5 +119,9 @@ img {
   position: absolute;
   left: 20px;
   bottom: 20px;
+}
+.bg {
+  filter: blur(10px);
+  transform: scale(1.25);
 }
 </style>
