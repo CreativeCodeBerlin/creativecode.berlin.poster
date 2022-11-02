@@ -267,8 +267,6 @@ form {
 .bg :deep(.author),
 .bg :deep(.site) {
   background: white;
-  /* color: black; */
-  /* backdrop-filter: blur(5px); */
   padding: 5px 10px;
 }
 .blur :deep(.author),
