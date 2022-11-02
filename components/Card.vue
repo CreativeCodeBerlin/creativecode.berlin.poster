@@ -53,8 +53,8 @@
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M0 128V0H31V93L9 128H0Z" fill="#BF6050" />
-          <path d="M0 101L31 93L9 128L0 101Z" fill="#B54341" />
+          <path d="M0 128V0H31V93L9 128H0Z" style="fill: var(--fg-1)" />
+          <path d="M0 101L31 93L9 128L0 101Z" style="fill: var(--fg-2)" />
         </svg>
       </div>
     </div>

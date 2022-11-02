@@ -231,7 +231,8 @@ function download() {
   font-family: "Comfortaa", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 
-  --fg-1: #bf6050;
+  --fg-1: #cb5955;
+  --fg-2: #a33c3b;
 }
 label {
   display: block;
