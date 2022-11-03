@@ -126,6 +126,7 @@ img {
   position: absolute;
   left: 20px;
   bottom: 20px;
+  line-height: 18px;
 }
 .bg {
   filter: blur(10px);
