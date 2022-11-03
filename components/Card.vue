@@ -114,6 +114,13 @@ img {
   position: absolute;
   right: 20px;
   bottom: 20px;
+  text-align: right;
+  line-height: 18px;
+}
+.author:before {
+  content: "art by";
+  display: block;
+  font-size: 14px;
 }
 .site {
   position: absolute;
