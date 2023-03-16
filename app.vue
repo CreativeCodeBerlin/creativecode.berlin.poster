@@ -261,7 +261,7 @@ form {
 }
 .main {
   width: 1200px;
-  height: 675px;
+  height: 676px;
 }
 .story {
   width: 540px;
