@@ -255,6 +255,7 @@ form {
 }
 .preview > div {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.125);
+  align-self: flex-start;
 }
 .image-preview {
   width: 150px;
