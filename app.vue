@@ -85,7 +85,7 @@
     </form>
     <div class="preview">
       <div>
-        <label for="">Twitter/Meetup</label>
+        <label for="">Twitter / Meetup</label>
         <div ref="meetup">
           <Card :data="data" class="main"></Card>
         </div>
