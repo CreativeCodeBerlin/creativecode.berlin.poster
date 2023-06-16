@@ -1,6 +1,12 @@
 <template>
-  <div :class="classes">
+  <div class="options" :class="classes">
     <form @submit.prevent="download">
+      <div>
+        <img src="/logo-mark.svg" />
+        <h1>
+          Socials Generator
+        </h1>
+      </div>
       <div>
         <label for="">Date to generate from</label>
         <Datepicker v-model="today" />
@@ -8,7 +14,7 @@
       <div>
         <label for="">Format</label>
         <select v-model="format">
-          <option v-for="format in formats" :value="format">
+          <option v-for="format in formats" :value="format" :key="format">
             {{ format }}
           </option>
         </select>
@@ -28,8 +34,20 @@
           inputFormat="yyyy-MM-dd HH:mm"
           minimumView="time"
         />
-        {{ when }}
+        <label>{{ when }}</label>
       </div>
+      <div>
+          <label for="">Author</label>
+          <input type="text" required v-model="author" /><br />
+        </div>
+        <div>
+          <label for="">@Instagram</label>
+          <input type="text" required v-model="instagram" /><br />
+        </div>
+        <div>
+          <label for="">@Twitter</label>
+          <input type="text" required v-model="twitter" /><br />
+        </div>
       <div>
         <label for="">Image</label>
         <div class="image-preview">
@@ -42,15 +60,13 @@
           <input type="range" min="0" max="100" v-model="focus[0]" />
           <input type="range" min="0" max="100" v-model="focus[1]" />
         </div>
-        <div>
-          <label for="">Author</label>
-          <input type="text" required v-model="author" /><br />
-        </div>
+        
       </div>
       <div>
         <label for="">Options</label>
         <div>
           <Multiselect
+            class="select"
             v-model="classes"
             mode="tags"
             :options="[
@@ -64,24 +80,8 @@
             ]"
           ></Multiselect>
         </div>
-        <!-- <select v-model="classes" multiple required size="10">
-          <option
-            v-for="cls in [
-              'invert',
-              'grey',
-              'color',
-              'bg',
-              'none',
-              'margin',
-              'contain',
-            ]"
-            :value="cls"
-          >
-            {{ cls }}
-          </option>
-        </select> -->
       </div>
-      <button>Download</button>
+      <div><button>Download</button></div>
     </form>
     <div class="preview">
       <div>
@@ -132,6 +132,8 @@ const image = ref(DefaultImage);
 const author = ref(null);
 const classes = ref(null);
 const focus = ref([50, 50]);
+const instagram = ref(null);
+const twitter = ref(null);
 
 const data = ref({
   today,
@@ -145,6 +147,7 @@ const data = ref({
 });
 
 useHead({
+  title: "Creative Code Socials Generator",
   link: [
     {
       rel: "preconnect",
@@ -223,16 +226,39 @@ function download() {
   downloadVersion(meetup.value, "meetup", 2);
   downloadVersion(insta.value, "insta", 4);
   downloadVersion(square.value, "square", 4);
+
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(`
+  Author: ${author.value} 
+  Insta: ${instagram.value} 
+  Twitter: ${twitter.value} 
+  Options: ${classes.value}
+  `));
+  element.setAttribute('download', 'meta.txt');
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
 }
 </script>
 
 <style>
 :root {
-  font-family: "Comfortaa", "Lucida Sans Regular", "Lucida Grande",
+  --font: "Comfortaa", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: var(--font);
 
   --fg-1: #cb5955;
   --fg-2: #a33c3b;
+  background: var(--fg-2);
+  color: white;
+  padding: 24px;
+}
+body{
+  margin: 0;
 }
 label {
   display: block;
@@ -245,8 +271,25 @@ form {
   grid-template-columns: 1fr 1fr 1fr;
 
   gap: 24px;
+  
+  margin-bottom: 12px;
+}
+label{
+  padding: 0.5em 0;
+}
+input, button, select{
+  padding: 12px;
+  font-family: var(--font);
+}
+button{
   background: var(--fg-1);
-  padding: 24px;
+  border: 0;
+  color: white;
+  border-radius: 12px;
+  padding: 36px;
+}
+.select{
+  color: black
 }
 .preview {
   display: flex;
