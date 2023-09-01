@@ -35,6 +35,7 @@
           minimumView="time"
         />
         <label>{{ when }}</label>
+        <label>{{ daysLeft }} days from now</label>
       </div>
       <div>
           <label for="">Author</label>
@@ -114,8 +115,10 @@ import {
   isBefore,
   addMonths,
   startOfMonth,
-  nextSaturday,
-  nextFriday,
+  differenceInDays,
+  addWeeks,
+  setDay,
+  getDay
 } from "date-fns";
 import domtoimage from "dom-to-image";
 const meetup = ref(null);
@@ -126,6 +129,7 @@ const today = ref(new Date());
 const formats = ["Stammtisch", "Jam"];
 const format = ref(formats[0]);
 const when = ref(new Date());
+const daysLeft = ref(0);
 const edition = ref(103);
 const where = ref("co.up Berlin");
 const image = ref(DefaultImage);
@@ -178,7 +182,7 @@ function generateNextEvent() {
   while (isBefore(stammtisch.date, today.value)) {
     let nextMonth = addMonths(stammtisch.date, 1);
     let start = startOfMonth(nextMonth);
-    let friday = nextFriday(start);
+    let friday = setDay(start, 5, { weekStartsOn: getDay(start) });
     friday.setHours(stammtisch.date.getHours());
     friday.setMinutes(stammtisch.date.getMinutes());
     stammtisch.date = friday;
@@ -192,13 +196,15 @@ function generateNextEvent() {
   while (isBefore(jam.date, today.value)) {
     let nextMonth = addMonths(jam.date, 1);
     let start = startOfMonth(nextMonth);
-    let saturday = nextSaturday(nextSaturday(nextSaturday(start)));
+    let saturday = setDay(start, 6, { weekStartsOn: getDay(start) });
+    saturday = addWeeks(saturday, 2)
     saturday.setHours(jam.date.getHours());
     jam.date = saturday;
     jam.edition += 1;
   }
   let event = isBefore(jam.date, stammtisch.date) ? jam : stammtisch;
   when.value = event.date;
+  daysLeft.value = differenceInDays(event.date, today.value);
   format.value = event.type;
   edition.value = event.edition;
 }
