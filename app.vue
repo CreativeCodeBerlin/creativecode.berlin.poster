@@ -29,26 +29,24 @@
       </div>
       <div>
         <label for="">When</label>
-        <Datepicker
-          v-model="when"
-          inputFormat="yyyy-MM-dd HH:mm"
-          minimumView="time"
-        />
+        <Datepicker v-model="when" inputFormat="yyyy-MM-dd HH:mm" minimumView="time" />
         <label>{{ when }}</label>
         <label>{{ daysLeft }} days from now</label>
       </div>
       <div>
-          <label for="">Author</label>
-          <input type="text" required v-model="author" /><br />
-        </div>
-        <div>
-          <label for="">@Instagram</label>
-          <input type="text" required v-model="instagram" /><br />
-        </div>
-        <div>
-          <label for="">@Twitter</label>
-          <input type="text" required v-model="twitter" /><br />
-        </div>
+        <label for="">Author</label>
+        <input type="text" required v-model="author" /><br />
+      </div>
+      <div>
+        <label for="">@Instagram</label>
+        <input type="text" required v-model="instagram" /><br />
+        <a :href="'https://instagram.com/' + instagram" target="_blank">Check</a>
+      </div>
+      <div>
+        <label for="">@Twitter</label>
+        <input type="text" required v-model="twitter" /><br />
+        <a :href="'https://twitter.com/' + twitter" target="_blank">Check</a>
+      </div>
       <div>
         <label for="">Image</label>
         <div class="image-preview">
@@ -61,25 +59,20 @@
           <input type="range" min="0" max="100" v-model="focus[0]" />
           <input type="range" min="0" max="100" v-model="focus[1]" />
         </div>
-        
+
       </div>
       <div>
         <label for="">Options</label>
         <div>
-          <Multiselect
-            class="select"
-            v-model="classes"
-            mode="tags"
-            :options="[
-              'margin',
-              'contain',
-              'invert',
-              'grey',
-              'color',
-              'bg',
-              'none',
-            ]"
-          ></Multiselect>
+          <Multiselect class="select" v-model="classes" mode="tags" :options="[
+            'margin',
+            'contain',
+            'invert',
+            'grey',
+            'color',
+            'bg',
+            'none',
+          ]"></Multiselect>
         </div>
       </div>
       <div><button>Download</button></div>
@@ -221,9 +214,8 @@ function download() {
       })
       .then(function (blob) {
         var link = document.createElement("a");
-        link.download = `${format.value}-${
-          edition.value
-        }-${name}-${new Date().getHours()}-${new Date().getMinutes()}.png`;
+        link.download = `${format.value}-${edition.value
+          }-${name}-${new Date().getHours()}-${new Date().getMinutes()}.png`;
         link.href = blob;
         link.click();
         el.style = "";
@@ -263,9 +255,11 @@ function download() {
   color: white;
   padding: 24px;
 }
-body{
+
+body {
   margin: 0;
 }
+
 label {
   display: block;
 }
@@ -277,74 +271,93 @@ form {
   grid-template-columns: 1fr 1fr 1fr;
 
   gap: 24px;
-  
+
   margin-bottom: 12px;
 }
-label{
+
+label {
   padding: 0.5em 0;
 }
-input, button, select{
+
+input,
+button,
+select {
   padding: 12px;
   font-family: var(--font);
 }
-button{
+
+button {
   background: var(--fg-1);
   border: 0;
   color: white;
   border-radius: 12px;
   padding: 36px;
 }
-.select{
+
+.select {
   color: black
 }
+
 .preview {
   display: flex;
   gap: 100px;
   flex-wrap: wrap;
 }
-.preview > div {
+
+.preview>div {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.125);
   align-self: flex-start;
 }
+
 .image-preview {
   width: 150px;
 }
+
 .main {
   width: 1200px;
   height: 676px;
 }
+
 .story {
   width: 540px;
   height: 960px;
 }
+
 .story :deep(.banner) {
   top: auto;
   bottom: 160px;
 }
+
 .square {
   width: 540px;
   height: 540px;
 }
+
 .invert :deep(.author),
 .invert :deep(.site) {
   color: black;
 }
+
 .grey :deep(.author),
 .grey :deep(.site) {
   color: grey;
 }
+
 .color :deep(.author),
 .color :deep(.site) {
   color: var(--fg-1);
 }
+
 .bg :deep(.author),
 .bg :deep(.site) {
   background: white;
   padding: 5px 10px;
 }
+
 .contain :deep(.image) {
   object-fit: contain;
 }
+
 .margin .story :deep(.image) {
   top: 100px;
   height: calc(100% - 200px);
