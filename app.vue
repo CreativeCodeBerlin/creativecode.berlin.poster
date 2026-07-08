@@ -197,11 +197,14 @@ function generateNextEvent() {
   }
   let event = isBefore(jam.date, stammtisch.date) ? jam : stammtisch;
   when.value = event.date;
-  daysLeft.value = differenceInDays(event.date, today.value);
   format.value = event.type;
   edition.value = event.edition;
 }
+function updateDaysLeft(){
+  daysLeft.value = differenceInDays(when.value, today.value);
+}
 onMounted(generateNextEvent);
+watch(when, updateDaysLeft);
 watch(today, generateNextEvent);
 
 function download() {
